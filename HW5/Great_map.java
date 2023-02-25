@@ -9,13 +9,15 @@ public class Great_map {
     public static void main(String[] args) {
         // body
         int[][] arr = MapCreate();
+        int[] queue_row = new int[arr.length * arr.length];
+        int[] queue_col = new int[arr.length * arr.length];
         //начальные данные
         int [] pointStart = StartPosition(arr);
         int [] pointsFinish = PointsFinish(arr); 
         //
         ArrayCreat(arr, pointStart, pointsFinish);
         // Маркировка маршрута
-        //PathMarking(arr, pointStart[0], pointStart[1]);
+        PathMarking(arr, pointStart[0], pointStart[1], queue_row, queue_col, 0);
         //выбор пути
 
         // end
@@ -51,8 +53,11 @@ public class Great_map {
         // init
         Scanner input = new Scanner(System.in);
         int [] point = new int[2];
+        String str_2 = String.format("Вводите значение в диапазоне от ", 1, " до " , arr.length - 2);
         // body
         System.out.println("Точка старта ");
+        System.out.println(str_2);
+
         System.out.print("Введите номер строки: ");
         point[0] = input.nextInt();
         System.out.print("Введите номер столбца: ");
@@ -125,7 +130,7 @@ public class Great_map {
                         System.out.println("Вы вышли за пределы возможного диапазона ");
                         System.out.println(str_2);
                     }
-                    
+
                 }
 
                 while(true){
@@ -147,26 +152,37 @@ public class Great_map {
     }
 
 
-    public static void PathMarking(int[][] arr, int x, int y) {
+    public static void PathMarking(int[][] arr, int x, int y, int [] row , int [] col, int index) {
         //[строка][столбец]
         //ограничение по массиву
-                if (arr[x-1][y]!= -1 && arr[x-1][y] == 0){
-                    arr[x-1][y] = arr[x][y] + 1;
-                    // arr = PathMarking(arr, x - 1, y);
-                }
-                if (arr[x][y+1]!= -1 && arr[x][y+1] == 0){
-                    arr[x][y+1] = arr[x][y] + 1;
-                    // arr = PathMarking(arr, x , y + 1);
-                }
-                if (arr[x+1][y]!= -1 && arr[x+1][y] == 0){
-                    arr[x+1][y] = arr[x][y] + 1;
-                    // arr = PathMarking(arr, x + 1 , y);
-                }
-                if (arr[x][y-1]!= -1 && arr[x][y-1] == 0){
-                    arr[x][y-1] = arr[x][y] + 1;
-                    // arr = PathMarking(arr, x , y - 1);
-                }
+                NeighborhoodLabeling(arr, x, y, row, col, index);       //System.out.println(rawData(arr));
+    }
+    //neighborhood labeling
 
-                //System.out.println(rawData(arr));
+    private static void NeighborhoodLabeling(int[][] arr, int x, int y, int[] row, int[] col, int index) {
+        if (arr[x-1][y]!= -1 && arr[x-1][y] == 0){
+            arr[x-1][y] = arr[x][y] + 1;
+            row[index] = x-1;
+            col[index] = y;
+            index ++;
+        }
+        if (arr[x][y+1]!= -1 && arr[x][y+1] == 0){
+            arr[x][y+1] = arr[x][y] + 1;
+            row[index] = x;
+            col[index] = y+1;
+            index ++;
+        }
+        if (arr[x+1][y]!= -1 && arr[x+1][y] == 0){
+            arr[x+1][y] = arr[x][y] + 1;
+            row[index] = x+1;
+            col[index] = y;
+            index ++;
+        }
+        if (arr[x][y-1]!= -1 && arr[x][y-1] == 0){
+            arr[x][y-1] = arr[x][y] + 1;
+            row[index] = x;
+            col[index] = y-1;
+            index ++;
+        }
     }
 }
