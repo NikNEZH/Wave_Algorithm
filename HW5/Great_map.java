@@ -1,11 +1,10 @@
 package HW5;
 
-import java.util.Random;
-// import java.util.Arrays;
-// import java.util.stream.IntStream;
-// import javax.swing.RowFilter;
+// библиотеки
 import java.util.Scanner;
-import java.util.random.RandomGenerator;
+
+//........
+
 public class Great_map {
     public static void main(String[] args) {
         // init
@@ -18,10 +17,11 @@ public class Great_map {
         int [] pointStart = StartPosition();
         int [] pointsFinish = PointsFinish(); 
         //
-        ArrayCreat(arr, pointStart,pointsFinish);
-
+        ArrayCreat(arr, pointStart, pointsFinish);
         // Маркировка маршрута
         PathMarking(arr, pointStart[0], pointStart[1]);
+        //выбор пути
+
         // end
         System.out.println(RawData(arr));
     }
