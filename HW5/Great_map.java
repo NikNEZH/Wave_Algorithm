@@ -155,7 +155,10 @@ public class Great_map {
     public static void PathMarking(int[][] arr, int x, int y, int [] row , int [] col, int index) {
         //[строка][столбец]
         //ограничение по массиву
-                NeighborhoodLabeling(arr, x, y, row, col, index);       //System.out.println(rawData(arr));
+       do {
+            NeighborhoodLabeling(arr, x, y, row, col, index);  
+       } while (row[index] != 0 && col[index] != 0 );             
+        //System.out.println(rawData(arr));
     }
     //neighborhood labeling
 
