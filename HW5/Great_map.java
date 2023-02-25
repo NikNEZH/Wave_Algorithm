@@ -10,12 +10,12 @@ public class Great_map {
         // body
         int[][] arr = MapCreate();
         //начальные данные
-        int [] pointStart = StartPosition();
-        int [] pointsFinish = PointsFinish(); 
+        int [] pointStart = StartPosition(arr);
+        int [] pointsFinish = PointsFinish(arr); 
         //
         ArrayCreat(arr, pointStart, pointsFinish);
         // Маркировка маршрута
-        PathMarking(arr, pointStart[0], pointStart[1]);
+        //PathMarking(arr, pointStart[0], pointStart[1]);
         //выбор пути
 
         // end
@@ -38,6 +38,7 @@ public class Great_map {
     
     private static int[][] MapCreate(){
         Scanner input = new Scanner(System.in);
+        System.out.println("Строим карту ");
         System.out.print("Введите количество строк: ");
         int row = input.nextInt();
         System.out.print("Введите количество столбцов: ");
@@ -46,11 +47,12 @@ public class Great_map {
         return array;
     } 
     
-    private static int[] StartPosition(){
+    private static int[] StartPosition(int arr[][]){
         // init
         Scanner input = new Scanner(System.in);
         int [] point = new int[2];
         // body
+        System.out.println("Точка старта ");
         System.out.print("Введите номер строки: ");
         point[0] = input.nextInt();
         System.out.print("Введите номер столбца: ");
@@ -78,11 +80,11 @@ public class Great_map {
         arr[start[0]][start[1]] = 1;
         // наносим финишные точки
         for (int i = 0; i < finish.length; i+=2) {
-            arr[i][i+1] = -5;
+            arr[finish[i]][finish[i+1]] = -5;
         }
         // обозначаем препядствия
         // сырой вариант
-        Wall(arr);
+       // Wall(arr);
     }
 
     private static void Wall(int[][] arr) {
@@ -97,7 +99,7 @@ public class Great_map {
         }
     }
     
-    private static int[] PointsFinish(){
+    private static int[] PointsFinish(int arr[][]){
         // init
         Scanner input = new Scanner(System.in);
         System.out.print("Введите введите количество выходов: ");
@@ -108,12 +110,37 @@ public class Great_map {
             // Записываем в массив по 2 элемента => шаг увеличиваем на 2
             for (int i = 0; i < countPoint; i+=2) {
                 String str = String.format("Ввод точки финиша № ", i);
-                System.out.print(str);
-                System.out.print("Введите номер строки: ");
-                points[i] = input.nextInt();
-                System.out.print("Введите номер столбца: ");
-                points[i+1] = input.nextInt();
-            
+                String str_2 = String.format("Вводите значение в диапазоне от ", 1, " до " , arr.length - 2);
+                System.out.println(str);
+                System.out.println(str_2);
+
+                while(true){
+                    System.out.print("Введите номер строки: ");
+                    points[i] = input.nextInt();
+
+                    if(points[i] > 1 && points[i] < arr.length - 1){
+                        break;
+                    }
+                    else{
+                        System.out.println("Вы вышли за пределы возможного диапазона ");
+                        System.out.println(str_2);
+                    }
+                    
+                }
+
+                while(true){
+                    System.out.print("Введите номер столбца: ");
+                    points[i+1] = input.nextInt();
+
+                    if(points[i+1] > 1 && points[i+1] < arr.length - 1){ 
+                        break;
+                    }
+                    else{
+                        System.out.println("Вы вышли за пределы возможного диапазона ");
+                        System.out.println(str_2);
+                    }
+
+                }
             }
         // end
         return points;
