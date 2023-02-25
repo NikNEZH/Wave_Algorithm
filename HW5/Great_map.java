@@ -7,13 +7,9 @@ import java.util.Scanner;
 
 public class Great_map {
     public static void main(String[] args) {
-        // init
-        Scanner input = new Scanner(System.in);
         // body
         int[][] arr = MapCreate();
         //начальные данные
-        System.out.println("Введите количество выходов");
-        int count = input.nextInt();
         int [] pointStart = StartPosition();
         int [] pointsFinish = PointsFinish(); 
         //
@@ -104,7 +100,7 @@ public class Great_map {
     private static int[] PointsFinish(){
         // init
         Scanner input = new Scanner(System.in);
-        System.out.print("Введите введите количествол выходов: ");
+        System.out.print("Введите введите количество выходов: ");
         int countPoint = input.nextInt();
 
         int [] points = new int[countPoint*2];
@@ -122,10 +118,7 @@ public class Great_map {
         // end
         return points;
     }
-    /**
-     * InnerGreat_map
-     */
-    
+
 
     public static void PathMarking(int[][] arr, int x, int y) {
         //[строка][столбец]
