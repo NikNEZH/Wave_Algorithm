@@ -92,17 +92,17 @@ public class Great_map {
        // Wall(arr);
     }
 
-    private static void Wall(int[][] arr) {
-        boolean flag = true;
-        while(flag){
-            int count = 0;
-            int row_no = (int) ( Math.random() * arr.length );
-            int col_no = (int) ( Math.random() * arr.length );
-            if (arr[row_no][col_no] == 0) arr[row_no][col_no] = -1;
-            count++;
-            if (count>3) flag = false;
-        }
-    }
+    // private static void Wall(int[][] arr) {
+    //     boolean flag = true;
+    //     while(flag){
+    //         int count = 0;
+    //         int row_no = (int) ( Math.random() * arr.length );
+    //         int col_no = (int) ( Math.random() * arr.length );
+    //         if (arr[row_no][col_no] == 0) arr[row_no][col_no] = -1;
+    //         count++;
+    //         if (count>3) flag = false;
+    //     }
+    // }
     
     private static int[] PointsFinish(int arr[][]){
         // init
