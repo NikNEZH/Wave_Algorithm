@@ -8,9 +8,9 @@ import javax.swing.RowFilter;
 import java.util.Scanner;
 public class Great_map {
     public static void main(String[] args) {
-        
-
+        // init
         Scanner input = new Scanner(System.in);
+        // body
         int[][] arr = MapCreate();
         //начальные данные
         System.out.println("Введите количество выходов");
@@ -20,21 +20,23 @@ public class Great_map {
         //
         arrayCreat(arr, pointStart);
 
-        //маркировка маршрута
+        // Маркировка маршрута
         PathMarking(arr, pointStart[0], pointStart[1]);
+        // end
         System.out.println(rawData(arr));
     }
 
     static String rawData(int[][] map) {
+        // init
         StringBuilder sb = new StringBuilder();
-
+        // body
         for (int row = 0; row < map.length; row++) {
             for (int col = 0; col < map[row].length; col++) {
                 sb.append(String.format("%3d",map[row][col]));
             }
             sb.append("\n");
         }
-
+        // end
         return sb.toString();
     }
     
@@ -51,13 +53,13 @@ public class Great_map {
     private static int[] startPosition(){
         // init
         Scanner input = new Scanner(System.in);
-        StringBuilder out = new StringBuilder();
         int [] point = new int[2];
         // body
         System.out.print("Введите номер строки: ");
         point[0] = input.nextInt();
-
-        return array;
+        System.out.print("Введите номер столбца: ");
+        point[0] = input.nextInt();
+        return point;
     }
 
     public static void arrayCreat(int[][] arr,int[] start) {
