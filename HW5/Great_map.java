@@ -9,15 +9,14 @@ public class Great_map {
     public static void main(String[] args) {
         // body
         int[][] arr = MapCreate();
-        int[] queue_row = new int[arr.length * arr.length];
-        int[] queue_col = new int[arr.length * arr.length];
+        
         //начальные данные
         int [] pointStart = StartPosition(arr);
         int [] pointsFinish = PointsFinish(arr); 
         //
         ArrayCreat(arr, pointStart, pointsFinish);
         // Маркировка маршрута
-        PathMarking(arr, pointStart[0], pointStart[1], queue_row, queue_col, 0);
+        PathMarking(arr, pointStart[0], pointStart[1]);
         //выбор пути
 
         // end
@@ -57,11 +56,28 @@ public class Great_map {
         // body
         System.out.println("Точка старта ");
         System.out.println(str_2);
-
+        while(true){
         System.out.print("Введите номер строки: ");
         point[0] = input.nextInt();
+            if(point[0] > 0 && point[0] < arr.length - 1){
+                break;
+            }
+            else{
+                System.out.println("Вы вышли за пределы возможного диапазона ");
+                System.out.println(str_2);
+            }
+        }
+        while(true){
         System.out.print("Введите номер столбца: ");
         point[1] = input.nextInt();
+            if(point[1] > 0 && point[1] < arr.length - 1){
+                break;
+            }
+            else{
+                System.out.println("Вы вышли за пределы возможного диапазона ");
+                System.out.println(str_2);
+            }
+        }
         return point;
     }
 
@@ -123,7 +139,7 @@ public class Great_map {
                     System.out.print("Введите номер строки: ");
                     points[i] = input.nextInt();
 
-                    if(points[i] > 1 && points[i] < arr.length - 1){
+                    if(points[i] > 0 && points[i] < arr.length - 1){
                         break;
                     }
                     else{
@@ -137,7 +153,7 @@ public class Great_map {
                     System.out.print("Введите номер столбца: ");
                     points[i+1] = input.nextInt();
 
-                    if(points[i+1] > 1 && points[i+1] < arr.length - 1){ 
+                    if(points[i+1] > 0 && points[i+1] < arr.length - 1){ 
                         break;
                     }
                     else{
@@ -152,40 +168,45 @@ public class Great_map {
     }
 
 
-    public static void PathMarking(int[][] arr, int x, int y, int [] row , int [] col, int index) {
+    public static void PathMarking(int[][] arr, int x, int y) {
         //[строка][столбец]
-        //ограничение по массиву
+        int[] queue_row_col = new int[arr.length * arr.length];
+        int index= 0;
+        int index_2 = 0;
+        queue_row_col = NeighborhoodLabeling(arr, x, y, queue_row_col, index);
        do {
-            NeighborhoodLabeling(arr, x, y, row, col, index);  
-       } while (row[index] != 0 && col[index] != 0 );             
+            queue_row_col = NeighborhoodLabeling(arr, x, y, queue_row_col, index);
+            index_2 += 2;  
+       } while (queue_row_col[index_2] != 0 && queue_row_col[index_2 + 1] != 0 );             
         //System.out.println(rawData(arr));
     }
     //neighborhood labeling
 
-    private static void NeighborhoodLabeling(int[][] arr, int x, int y, int[] row, int[] col, int index) {
+    private static int[] NeighborhoodLabeling(int[][] arr, int x, int y, int[] rowCol, int index) {
         if (arr[x-1][y]!= -1 && arr[x-1][y] == 0){
             arr[x-1][y] = arr[x][y] + 1;
-            row[index] = x-1;
-            col[index] = y;
-            index ++;
+            rowCol[index] = x-1;
+            rowCol[index + 1] = y;
+            index += 2;
         }
         if (arr[x][y+1]!= -1 && arr[x][y+1] == 0){
             arr[x][y+1] = arr[x][y] + 1;
-            row[index] = x;
-            col[index] = y+1;
-            index ++;
+            rowCol[index] = x;
+            rowCol[index+1] = y+1;
+            index += 2;
         }
         if (arr[x+1][y]!= -1 && arr[x+1][y] == 0){
             arr[x+1][y] = arr[x][y] + 1;
-            row[index] = x+1;
-            col[index] = y;
+            rowCol[index] = x+1;
+            rowCol[index+1] = y;
             index ++;
         }
         if (arr[x][y-1]!= -1 && arr[x][y-1] == 0){
             arr[x][y-1] = arr[x][y] + 1;
-            row[index] = x;
-            col[index] = y-1;
-            index ++;
+            rowCol[index] = x;
+            rowCol[index+1] = y-1;
+            index +=2;
         }
+        return rowCol;
     }
 }
