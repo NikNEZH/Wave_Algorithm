@@ -1,9 +1,11 @@
 package HW5;
 
+import java.util.Random;
 // import java.util.Arrays;
 // import java.util.stream.IntStream;
 // import javax.swing.RowFilter;
 import java.util.Scanner;
+import java.util.random.RandomGenerator;
 public class Great_map {
     public static void main(String[] args) {
         // init
@@ -83,9 +85,20 @@ public class Great_map {
             arr[i][i+1] = -5;
         }
         // обозначаем препядствия
-        //
+        // сырой вариант
+        Wall(arr);
+    }
 
-
+    private static void Wall(int[][] arr) {
+        boolean flag = true;
+        while(flag){
+            int count = 0;
+            int row_no = (int) ( Math.random() * arr.length );
+            int col_no = (int) ( Math.random() * arr.length );
+            if (arr[row_no][col_no] == 0) arr[row_no][col_no] = -1;
+            count++;
+            if (count>3) flag = false;
+        }
     }
     
     private static int[] PointsFinish(){
